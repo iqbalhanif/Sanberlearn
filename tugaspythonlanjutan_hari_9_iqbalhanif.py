@@ -34,6 +34,16 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 data = pd.read_csv("data_pokemon.csv") 
 
+data["Attack"] = pd.to_numeric(data["Attack"])
+data["Defense"] = pd.to_numeric(data["Defense"])
+
+#menambahkan dua kolom tranformasi
+data["Alog"] = np.log(data["Attack"])
+data["Dlog"] = np.log(data["Defense"])
+
+log_data = data.iloc[:, 10:12]
+log_array = np.array(log_data)
+
 kmeans = KMeans(n_clusters=3, random_state=200)
 kmeans.fit(log_array)
 data['kluster'] = kmeans.labels_
